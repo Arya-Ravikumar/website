@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arya Ravikumar — Community Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+:root {
+  --moss:#3d5a3e; --moss-lt:#5a7d5c; --fern:#7aab7c; --mist:#e8f0e8;
+  --cream:#faf8f4; --warm:#f5ede0; --clay:#c4714a; --clay-lt:#dfa080;
+  --gold:#c8992a; --ink:#1e2820; --ink60:rgba(30,40,32,.6);
+  --ink20:rgba(30,40,32,.12); --white:#ffffff; --r:20px;
+}
+body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+body::before {
+  content:''; pointer-events:none; position:fixed; inset:0; z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  background-size:180px; opacity:.5;
+}
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 2.5rem; background:rgba(250,248,244,.88);
+  backdrop-filter:blur(14px); border-bottom:1px solid var(--ink20);
+}
+.nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; color:var(--ink); text-decoration:none; }
+.nav-logo span { color:var(--moss); font-style:italic; }
+.nav-links { display:flex; gap:1.8rem; list-style:none; }
+.nav-links a { font-size:.8rem; font-weight:500; letter-spacing:.07em; text-transform:uppercase; text-decoration:none; color:var(--ink60); transition:color .2s; }
+.nav-links a:hover { color:var(--moss); }
+.nav-cta { background:var(--moss); color:white; font-size:.8rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; padding:.55rem 1.3rem; border-radius:999px; text-decoration:none; transition:background .2s,transform .2s; }
+.nav-cta:hover { background:var(--moss-lt); transform:translateY(-1px); }
+
+/* HERO */
+#hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; padding:8rem 2.5rem 5rem; position:relative; overflow:hidden; }
+.hero-bg-leaf { position:absolute; pointer-events:none; opacity:.06; font-size:38rem; line-height:1; top:-4rem; right:-6rem; z-index:0; animation:slowspin 40s linear infinite; }
+@keyframes slowspin { to { transform:rotate(360deg); } }
+.hero-stripe { position:absolute; top:0; left:0; width:4px; height:100%; background:linear-gradient(to bottom,var(--fern),var(--clay)); }
+.hero-left { position:relative; z-index:1; }
+.hero-eyebrow { display:inline-flex; align-items:center; gap:.5rem; background:var(--mist); color:var(--moss-lt); font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:.4rem 1rem; border-radius:999px; margin-bottom:1.6rem; border:1px solid rgba(90,125,92,.25); animation:fadeUp .7s ease both; }
+.dot-pulse { width:7px; height:7px; border-radius:50%; background:var(--fern); animation:pulse 2s infinite; }
+@keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(122,171,124,.5);} 70%{box-shadow:0 0 0 8px rgba(122,171,124,0);} 100%{box-shadow:0 0 0 0 rgba(122,171,124,0);} }
+h1.hero-name { font-family:'Cormorant Garamond',serif; font-size:clamp(3.2rem,5.5vw,5.8rem); font-weight:700; line-height:1; letter-spacing:-.03em; animation:fadeUp .7s .1s ease both; }
+h1.hero-name em { font-style:italic; color:var(--moss); display:block; }
+.hero-tagline { margin-top:1.8rem; font-size:1.05rem; line-height:1.75; color:var(--ink60); max-width:460px; animation:fadeUp .7s .2s ease both; }
+.hero-tagline strong { color:var(--ink); font-weight:500; }
+.hero-stats { margin-top:2.5rem; display:flex; gap:2.5rem; animation:fadeUp .7s .3s ease both; }
+.stat-num { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; color:var(--moss); line-height:1; }
+.stat-label { font-size:.78rem; color:var(--ink60); letter-spacing:.04em; margin-top:.2rem; }
+.hero-actions { margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap; animation:fadeUp .7s .35s ease both; }
+.btn { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.8rem; border-radius:999px; font-size:.875rem; font-weight:500; letter-spacing:.03em; text-decoration:none; border:none; cursor:pointer; transition:transform .2s,box-shadow .2s; font-family:'Jost',sans-serif; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.13); }
+.btn-moss { background:var(--moss); color:white; }
+.btn-outline { background:transparent; color:var(--ink); border:1.5px solid var(--ink20); }
+.hero-right { position:relative; z-index:1; display:flex; flex-direction:column; gap:1.2rem; animation:fadeUp .7s .2s ease both; }
+.hero-card { background:white; border-radius:var(--r); padding:1.4rem 1.6rem; border:1px solid var(--ink20); display:flex; align-items:flex-start; gap:1rem; transition:transform .2s; }
+.hero-card:hover { transform:translateX(4px); }
+.hc-icon { width:44px; height:44px; flex-shrink:0; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+.hc-moss{background:var(--mist);} .hc-clay{background:#faeee8;} .hc-gold{background:#faf4e4;}
+.hc-title { font-size:.95rem; font-weight:600; margin-bottom:.2rem; }
+.hc-sub { font-size:.82rem; color:var(--ink60); line-height:1.5; }
+
+/* SECTION */
+.section-wrap { max-width:1140px; margin:0 auto; padding:5rem 2.5rem; }
+.section-kicker { display:inline-flex; align-items:center; gap:.5rem; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--clay); margin-bottom:.6rem; }
+.section-kicker::before { content:''; display:block; width:20px; height:2px; background:var(--clay); }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:700; letter-spacing:-.02em; line-height:1.1; margin-bottom:3rem; }
+.section-title em { font-style:italic; color:var(--moss); }
+
+/* IMPACT BAND */
+#impact-band { background:var(--moss); padding:3rem 2.5rem; }
+.impact-inner { max-width:1140px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; }
+.impact-item { text-align:center; }
+.impact-num { font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:700; line-height:1; color:var(--fern); }
+.impact-label { font-size:.85rem; color:rgba(255,255,255,.7); margin-top:.4rem; line-height:1.4; }
+
+/* SERVICE */
+#service-section { background:white; }
+.service-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.service-card { border-radius:var(--r); overflow:hidden; border:1px solid var(--ink20); position:relative; transition:transform .25s,box-shadow .25s; background:var(--cream); }
+.service-card:hover { transform:translateY(-5px); box-shadow:0 20px 48px rgba(30,40,32,.1); }
+.service-card.featured { grid-column:span 2; display:grid; grid-template-columns:1fr 1.2fr; }
+.service-card-visual { aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; font-size:4rem; position:relative; overflow:hidden; }
+.service-card.featured .service-card-visual { aspect-ratio:auto; min-height:240px; }
+.sv-green{background:linear-gradient(135deg,#d2e8d4,#b5d4b8);}
+.sv-warm{background:linear-gradient(135deg,#f5e8d8,#e8cdb4);}
+.sv-blue{background:linear-gradient(135deg,#d8e8f0,#b8d4e8);}
+.sv-gold{background:linear-gradient(135deg,#f5edce,#e8d8a0);}
+.sv-rings { position:absolute; inset:0; background:radial-gradient(circle at 50% 50%,transparent 30%,rgba(255,255,255,.15) 31%,transparent 32%,transparent 45%,rgba(255,255,255,.1) 46%,transparent 47%,transparent 62%,rgba(255,255,255,.07) 63%,transparent 64%); }
+.service-card-body { padding:1.8rem; }
+.service-tag { display:inline-block; font-size:.7rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:.25rem .75rem; border-radius:999px; margin-bottom:.8rem; }
+.tag-moss{background:var(--mist);color:var(--moss);border:1px solid rgba(90,125,92,.2);}
+.tag-clay{background:#faeee8;color:#a05038;border:1px solid rgba(196,113,74,.2);}
+.tag-blue{background:#e8f4f8;color:#3870a0;border:1px solid rgba(56,112,160,.2);}
+.tag-gold{background:#faf4e4;color:#986820;border:1px solid rgba(200,153,42,.2);}
+.service-name { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; line-height:1.2; margin-bottom:.5rem; }
+.service-role { font-size:.8rem; color:var(--clay); font-weight:500; margin-bottom:.75rem; letter-spacing:.02em; }
+.service-desc { font-size:.88rem; color:var(--ink60); line-height:1.75; }
+.service-bullets { margin-top:.8rem; list-style:none; display:flex; flex-direction:column; gap:.4rem; }
+.service-bullets li { font-size:.82rem; color:var(--ink60); line-height:1.5; display:flex; align-items:flex-start; gap:.5rem; }
+.service-bullets li::before { content:'→'; color:var(--moss); flex-shrink:0; margin-top:.05em; }
+
+/* AWARDS */
+.awards-list { display:flex; flex-direction:column; gap:1px; background:var(--ink20); border-radius:var(--r); overflow:hidden; }
+.award-row { background:white; padding:1.4rem 2rem; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1.5rem; transition:background .2s; }
+.award-row:hover { background:var(--mist); }
+.award-medal { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
+.medal-gold{background:#fff3cc;} .medal-teal{background:#d4eef8;} .medal-green{background:var(--mist);} .medal-clay{background:#faeee8;} .medal-silver{background:#f0f0f0;}
+.award-title { font-size:.95rem; font-weight:600; line-height:1.3; }
+.award-org { font-size:.8rem; color:var(--ink60); margin-top:.2rem; }
+.award-year { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600; color:var(--ink60); white-space:nowrap; }
+
+/* CV */
+#cv-section { background:var(--warm); }
+.cv-card { background:white; border-radius:24px; overflow:hidden; border:1px solid var(--ink20); }
+.cv-top { background:linear-gradient(135deg,var(--moss),var(--moss-lt)); color:white; padding:2.5rem 2.5rem 2rem; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; }
+.cv-top-name { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; line-height:1; }
+.cv-top-name span { font-style:italic; opacity:.7; display:block; font-size:1rem; font-weight:300; margin-top:.3rem; }
+.cv-contact-item { font-size:.82rem; opacity:.8; line-height:1.8; }
+.cv-tabs { display:flex; gap:0; border-bottom:1px solid var(--ink20); padding:0 2.5rem; overflow-x:auto; }
+.cv-tab { padding:1rem 1.5rem; font-size:.82rem; font-weight:500; letter-spacing:.04em; text-transform:uppercase; color:var(--ink60); cursor:pointer; border:none; background:none; border-bottom:3px solid transparent; margin-bottom:-1px; white-space:nowrap; transition:color .2s; font-family:'Jost',sans-serif; }
+.cv-tab.active { color:var(--moss); border-bottom-color:var(--moss); }
+.cv-tab:hover:not(.active) { color:var(--ink); }
+.cv-pane { display:none; padding:2.5rem; }
+.cv-pane.active { display:block; }
+.cv-item { margin-bottom:2rem; padding-bottom:2rem; border-bottom:1px solid var(--ink20); }
+.cv-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.cv-item-top { display:flex; justify-content:space-between; gap:1rem; margin-bottom:.3rem; }
+.cv-item-title { font-size:1rem; font-weight:600; }
+.cv-item-date { font-size:.8rem; color:var(--ink60); white-space:nowrap; padding:.2rem .7rem; background:var(--mist); border-radius:999px; height:fit-content; }
+.cv-item-role { font-size:.82rem; color:var(--clay); font-weight:500; margin-bottom:.6rem; letter-spacing:.02em; }
+.cv-item-body { font-size:.875rem; color:var(--ink60); line-height:1.75; }
+.skill-chips { display:flex; flex-wrap:wrap; gap:.5rem; }
+.chip { padding:.35rem .9rem; border-radius:999px; font-size:.78rem; background:var(--mist); border:1px solid rgba(90,125,92,.2); color:var(--moss); font-weight:500; }
+.edu-row { display:flex; align-items:center; gap:1.2rem; padding:.9rem 0; border-bottom:1px solid var(--ink20); }
+.edu-row:last-child { border-bottom:none; }
+.edu-dot { width:10px; height:10px; border-radius:50%; background:var(--fern); flex-shrink:0; }
+.edu-main { flex:1; }
+.edu-title { font-size:.95rem; font-weight:600; }
+.edu-sub { font-size:.82rem; color:var(--ink60); margin-top:.15rem; }
+.edu-gpa { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:700; color:var(--moss); white-space:nowrap; }
+
+/* BLOG */
+#blog-section { background:var(--mist); }
+.blog-header-row { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2.5rem; flex-wrap:wrap; gap:1rem; }
+.blog-filter { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.6rem; }
+.filter-btn { padding:.35rem .9rem; border-radius:999px; font-size:.78rem; font-weight:500; border:1.5px solid var(--ink20); background:transparent; color:var(--ink60); cursor:pointer; transition:all .2s; font-family:'Jost',sans-serif; }
+.filter-btn.active,.filter-btn:hover { background:var(--moss); color:white; border-color:var(--moss); }
+.blog-featured { background:white; border-radius:20px; overflow:hidden; border:1px solid var(--ink20); margin-bottom:1.5rem; display:grid; grid-template-columns:1fr 1fr; cursor:pointer; transition:transform .25s,box-shadow .25s; }
+.blog-featured:hover { transform:translateY(-4px); box-shadow:0 20px 50px rgba(30,40,32,.1); }
+.bf-visual { min-height:280px; display:flex; align-items:center; justify-content:center; font-size:5rem; background:linear-gradient(135deg,#c8dfc9,#a8c9aa); position:relative; overflow:hidden; }
+.bf-visual::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 70%,rgba(255,255,255,.15) 0%,transparent 60%); }
+.bf-body { padding:2.5rem; display:flex; flex-direction:column; justify-content:center; }
+.bf-title { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:700; line-height:1.25; margin-bottom:.8rem; margin-top:.8rem; }
+.bf-excerpt { font-size:.9rem; color:var(--ink60); line-height:1.75; margin-bottom:1.2rem; }
+.bf-meta { font-size:.8rem; color:var(--ink60); display:flex; gap:1rem; }
+.bf-read { color:var(--clay); font-weight:500; margin-top:1rem; font-size:.875rem; display:inline-flex; align-items:center; gap:.3rem; }
+.blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+.blog-card { background:white; border-radius:var(--r); overflow:hidden; border:1px solid var(--ink20); cursor:pointer; transition:transform .2s,box-shadow .2s; display:flex; flex-direction:column; }
+.blog-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(30,40,32,.09); }
+.bc-visual { height:110px; display:flex; align-items:center; justify-content:center; font-size:2.8rem; position:relative; overflow:hidden; }
+.bcv-1{background:linear-gradient(135deg,#d8ecda,#b8d8bc);}
+.bcv-2{background:linear-gradient(135deg,#f5e8d5,#e8d0b0);}
+.bcv-3{background:linear-gradient(135deg,#d5e8f5,#b0ccdf);}
+.bcv-4{background:linear-gradient(135deg,#ecdfd5,#d8c4b4);}
+.bcv-5{background:linear-gradient(135deg,#e8e4d8,#d4cdb8);}
+.bcv-6{background:linear-gradient(135deg,#f0ead8,#e0d4b8);}
+.bcv-7{background:linear-gradient(135deg,#d8f0e8,#b0d8c4);}
+.bc-body { padding:1.3rem; flex:1; display:flex; flex-direction:column; }
+.bc-tag { font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.6rem; }
+.bc-title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:700; line-height:1.3; margin-bottom:.5rem; flex:1; }
+.bc-excerpt { font-size:.8rem; color:var(--ink60); line-height:1.6; margin-bottom:.8rem; }
+.bc-meta { font-size:.75rem; color:var(--ink60); display:flex; justify-content:space-between; margin-top:auto; }
+.write-btn { display:inline-flex; align-items:center; gap:.5rem; background:var(--moss); color:white; font-size:.82rem; font-weight:500; letter-spacing:.04em; padding:.65rem 1.4rem; border-radius:999px; border:none; cursor:pointer; transition:all .2s; font-family:'Jost',sans-serif; }
+.write-btn:hover { background:var(--moss-lt); transform:translateY(-2px); box-shadow:0 8px 20px rgba(61,90,62,.25); }
+.blog-empty { text-align:center; padding:3rem; color:var(--ink60); font-size:.9rem; display:none; }
+
+/* CONTACT */
+#contact-section { background:var(--ink); }
+.contact-inner { display:grid; grid-template-columns:1.1fr 1fr; gap:5rem; align-items:start; max-width:1140px; margin:0 auto; padding:5rem 2.5rem; }
+.contact-kicker { font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--fern); margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem; }
+.contact-kicker::before { content:''; display:block; width:20px; height:2px; background:var(--fern); }
+.contact-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3vw,2.8rem); font-weight:700; color:white; line-height:1.1; margin-bottom:1.2rem; }
+.contact-title em { font-style:italic; color:var(--fern); }
+.contact-note { font-size:.95rem; color:rgba(255,255,255,.55); line-height:1.8; margin-bottom:2.5rem; }
+.contact-methods { display:flex; flex-direction:column; gap:.9rem; }
+.contact-method { display:flex; align-items:center; gap:.9rem; text-decoration:none; color:rgba(255,255,255,.7); font-size:.875rem; transition:color .2s; }
+.contact-method:hover { color:white; }
+.cm-icon { width:40px; height:40px; flex-shrink:0; border-radius:10px; background:rgba(255,255,255,.07); display:flex; align-items:center; justify-content:center; font-size:1rem; transition:background .2s; }
+.contact-method:hover .cm-icon { background:rgba(122,171,124,.2); }
+.cf-input,.cf-textarea { width:100%; padding:.85rem 1.1rem; background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.12); border-radius:12px; color:white; font-family:'Jost',sans-serif; font-size:.9rem; margin-bottom:1rem; outline:none; transition:border-color .2s; }
+.cf-input::placeholder,.cf-textarea::placeholder { color:rgba(255,255,255,.3); }
+.cf-input:focus,.cf-textarea:focus { border-color:var(--fern); }
+.cf-textarea { min-height:130px; resize:vertical; }
+.cf-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.cf-submit { width:100%; background:var(--moss); color:white; border:none; border-radius:999px; padding:.9rem; font-size:.9rem; font-weight:500; cursor:pointer; transition:all .2s; font-family:'Jost',sans-serif; }
+.cf-submit:hover { background:var(--moss-lt); transform:translateY(-2px); box-shadow:0 8px 24px rgba(61,90,62,.35); }
+.cf-success { display:none; text-align:center; color:var(--fern); font-size:.9rem; padding:1rem; }
+
+footer { background:var(--ink); border-top:1px solid rgba(255,255,255,.07); text-align:center; padding:1.8rem; color:rgba(255,255,255,.3); font-size:.78rem; letter-spacing:.04em; }
+
+/* MODAL */
+.modal-bg { display:none; position:fixed; inset:0; z-index:500; background:rgba(30,40,32,.55); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:1.5rem; }
+.modal-bg.open { display:flex; }
+.modal-box { background:white; border-radius:24px; width:100%; max-width:620px; max-height:88vh; overflow-y:auto; box-shadow:0 40px 100px rgba(30,40,32,.3); animation:modalIn .3s ease; }
+@keyframes modalIn { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+.modal-header { padding:2rem 2rem 1rem; border-bottom:1px solid var(--ink20); display:flex; justify-content:space-between; align-items:flex-start; }
+.modal-header-title { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:700; }
+.modal-close { background:none; border:none; cursor:pointer; font-size:1.4rem; color:var(--ink60); line-height:1; padding:.2rem; }
+.modal-body { padding:2rem; }
+.form-row { margin-bottom:1.2rem; }
+.form-label { display:block; font-size:.8rem; font-weight:500; color:var(--ink60); margin-bottom:.4rem; letter-spacing:.03em; }
+.form-input,.form-textarea,.form-select { width:100%; padding:.75rem 1rem; border:1.5px solid var(--ink20); border-radius:12px; font-family:'Jost',sans-serif; font-size:.9rem; background:var(--cream); color:var(--ink); outline:none; transition:border-color .2s; }
+.form-input:focus,.form-textarea:focus,.form-select:focus { border-color:var(--moss); }
+.form-textarea { min-height:160px; resize:vertical; }
+.modal-actions { display:flex; gap:.75rem; justify-content:flex-end; }
+
+/* READ MODAL */
+.read-modal-bg { display:none; position:fixed; inset:0; z-index:600; background:rgba(30,40,32,.6); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:1.5rem; }
+.read-modal-bg.open { display:flex; }
+.read-modal-box { background:white; border-radius:24px; width:100%; max-width:700px; max-height:90vh; overflow-y:auto; animation:modalIn .3s ease; }
+.rh-visual { height:160px; display:flex; align-items:center; justify-content:center; font-size:4rem; border-radius:24px 24px 0 0; }
+.rh-content { padding:2rem 2.5rem 1.5rem; border-bottom:1px solid var(--ink20); }
+.rh-tag-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.6rem; }
+.rh-title { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; line-height:1.15; margin-bottom:.4rem; }
+.rh-meta { font-size:.82rem; color:var(--ink60); }
+.read-modal-body { padding:2rem 2.5rem 2.5rem; font-size:.95rem; line-height:1.85; color:var(--ink60); }
+.read-modal-body p { margin-bottom:1.2rem; }
+.read-modal-body p:last-child { margin-bottom:0; }
+.read-modal-close { position:sticky; bottom:0; background:white; border-top:1px solid var(--ink20); padding:1.2rem 2.5rem; display:flex; justify-content:flex-end; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
+.reveal { opacity:0; transform:translateY(22px); transition:opacity .65s ease,transform .65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;}
+  .service-card.featured{grid-column:span 1;grid-template-columns:1fr;}
+  .service-grid{grid-template-columns:1fr;}
+  .blog-featured{grid-template-columns:1fr;}
+  .blog-grid{grid-template-columns:1fr 1fr;}
+  .contact-inner{grid-template-columns:1fr;gap:3rem;}
+  .impact-inner{grid-template-columns:repeat(2,1fr);}
+  nav{padding:.8rem 1.2rem;}
+  .nav-links{gap:.9rem;}
+}
+@media(max-width:600px){
+  .blog-grid{grid-template-columns:1fr;}
+  .cf-row{grid-template-columns:1fr;}
+  .section-wrap{padding:4rem 1.5rem;}
+  .award-row{grid-template-columns:auto 1fr;}
+  .award-year{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Arya <span>Ravikumar</span></a>
+  <ul class="nav-links">
+    <li><a href="#service-section">Service</a></li>
+    <li><a href="#awards-section">Awards</a></li>
+    <li><a href="#cv-section">CV</a></li>
+    <li><a href="#blog-section">Blog</a></li>
+  </ul>
+  <a href="#contact-section" class="nav-cta">Contact Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:none;margin:0;padding-top:8rem;padding-bottom:5rem;padding-left:2.5rem;padding-right:2.5rem;position:relative;overflow:hidden;">
+  <div class="hero-bg-leaf" aria-hidden="true">🌿</div>
+  <div class="hero-stripe" aria-hidden="true"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow"><div class="dot-pulse"></div> Community Builder · Marion, Iowa</div>
+    <h1 class="hero-name">Arya<em>Ravikumar.</em></h1>
+    <p class="hero-tagline">High school sophomore turning <strong>big ideas into real community impact</strong> — founding nonprofits, leading healthcare outreach, and raising thousands for causes that matter.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">70+</div><div class="stat-label">Hospital volunteer<br>hours logged</div></div>
+      <div class="stat"><div class="stat-num">$1,870</div><div class="stat-label">Raised for community<br>organizations</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Awards &amp;<br>recognitions · 2025</div></div>
+    </div>
+    <div class="hero-actions">
+      <a href="#service-section" class="btn btn-moss">↓ See My Work</a>
+      <a href="#blog-section" class="btn btn-outline">Read My Blog</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card"><div class="hc-icon hc-moss">🏥</div><div><div class="hc-title">The Street Health Project</div><div class="hc-sub">Founder — distributing healthcare &amp; hygiene kits to underserved communities</div></div></div>
+    <div class="hero-card"><div class="hc-icon hc-clay">💊</div><div><div class="hc-title">St. Luke's Hospital Volunteer</div><div class="hc-sub">70+ hours assisting patients &amp; supporting healthcare staff</div></div></div>
+    <div class="hero-card"><div class="hc-icon hc-gold">📚</div><div><div class="hc-title">Cedar Rapids STEM Circle</div><div class="hc-sub">Teaching science, math &amp; robotics to middle schoolers</div></div></div>
+    <div class="hero-card" style="border:1.5px dashed var(--ink20);background:transparent;align-items:center;padding:1rem 1.6rem;"><div class="hc-icon" style="background:transparent;font-size:1.8rem;">🌸</div><div><div class="hc-title" style="font-size:.85rem;font-weight:400;color:var(--ink60);">Your photo goes here — replace this placeholder</div></div></div>
+  </div>
+</section>
+
+<!-- IMPACT BAND -->
+<div id="impact-band">
+  <div class="impact-inner">
+    <div class="impact-item reveal"><div class="impact-num">200+</div><div class="impact-label">Companies cold-emailed for sponsorships &amp; partnerships</div></div>
+    <div class="impact-item reveal"><div class="impact-num">4.36</div><div class="impact-label">GPA · AP US History score: 5 out of 5</div></div>
+    <div class="impact-item reveal"><div class="impact-num">$200</div><div class="impact-label">In donated healthcare supplies for underserved families</div></div>
+    <div class="impact-item reveal"><div class="impact-num">2028</div><div class="impact-label">Linn-Mar High School Class of 2028 — just getting started</div></div>
+  </div>
+</div>
+
+<!-- COMMUNITY SERVICE -->
+<section id="service-section">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="section-kicker">Community Service</div>
+      <h2 class="section-title">Where I Show Up <em>For Others</em></h2>
+    </div>
+    <div class="service-grid">
+      <div class="service-card featured reveal">
+        <div class="service-card-visual sv-green"><div class="sv-rings"></div><span style="position:relative;z-index:1;">🏥</span></div>
+        <div class="service-card-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <div class="service-tag tag-moss">Nonprofit · Founder</div>
+          <div class="service-name">The Street Health Project</div>
+          <div class="service-role">Founder & Organizer · October 2025–Present</div>
+          <div class="service-desc">Founded a local nonprofit focused on providing healthcare access to those who need it most — assembling and distributing hygiene and healthcare kits to underserved communities in the Cedar Rapids area.</div>
+          <ul class="service-bullets">
+            <li>Secured $200 in donated supplies from clinics and local businesses through cold outreach and online promotion</li>
+            <li>Built community partnerships and coordinated donation drives through in-person outreach</li>
+            <li>Managing all logistics, communication, and growth of the initiative independently</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-visual sv-warm"><div class="sv-rings"></div><span style="position:relative;z-index:1;">💊</span></div>
+        <div class="service-card-body">
+          <div class="service-tag tag-clay">Healthcare · Volunteering</div>
+          <div class="service-name">St. Luke's Hospital</div>
+          <div class="service-role">Volunteer · July 2025–Present</div>
+          <div class="service-desc">Dedicated 70+ hours volunteering across departments — assisting patients with navigation and supporting nursing and administrative staff throughout the hospital.</div>
+          <ul class="service-bullets"><li>Hands-on experience across multiple hospital departments</li><li>70+ logged volunteer hours and counting</li></ul>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-visual sv-blue"><div class="sv-rings"></div><span style="position:relative;z-index:1;">📐</span></div>
+        <div class="service-card-body">
+          <div class="service-tag tag-blue">STEM Education · Tutoring</div>
+          <div class="service-name">Cedar Rapids STEM Circle</div>
+          <div class="service-role">Science & Math Tutor · August 2025–Present</div>
+          <div class="service-desc">Teaching middle school students through a community STEM initiative — developing curriculum, creating visual learning materials, and running hands-on science and robotics sessions.</div>
+          <ul class="service-bullets"><li>Co-developed curriculum for science, math &amp; robotics classes</li><li>Networked with partner orgs to expand program reach</li></ul>
+        </div>
+      </div>
+      <div class="service-card reveal" style="grid-column:span 2;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;width:100%;">
+          <div class="service-card-visual sv-gold" style="aspect-ratio:auto;min-height:200px;"><div class="sv-rings"></div><span style="position:relative;z-index:1;">🤖</span></div>
+          <div class="service-card-body" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="service-tag tag-gold">Robotics · Outreach</div>
+            <div class="service-name">Dark Matter Robotics — Outreach Lead</div>
+            <div class="service-role">Outreach Lead · September 2025–Present</div>
+            <div class="service-desc">Leading all community outreach for Linn-Mar's robotics team — connecting STEAM education with the broader community through events, fundraising, and mentorship.</div>
+            <ul class="service-bullets">
+              <li>Organized food drive, STEAM kit distribution, and open Robotics Workshop</li>
+              <li>Raised $200 for new robotics equipment through community connections</li>
+              <li>Trained new members in outreach strategy &amp; project management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards-section" style="background:var(--warm);">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="section-kicker">Recognition</div>
+      <h2 class="section-title">Achievements &amp; <em>Awards</em></h2>
+    </div>
+    <div class="awards-list reveal">
+      <div class="award-row"><div class="award-medal medal-gold">🥇</div><div><div class="award-title">1st Place — Optics, Science Olympiad Regional</div><div class="award-org">Science Olympiad</div></div><div class="award-year">2025</div></div>
+      <div class="award-row"><div class="award-medal medal-teal">🔬</div><div><div class="award-title">5th Place — Human Growth & Development, Iowa HOSA SLC</div><div class="award-org">HOSA State Leadership Conference</div></div><div class="award-year">2025</div></div>
+      <div class="award-row"><div class="award-medal medal-gold">🥇</div><div><div class="award-title">1st Place — Hospitality & Event Management, Iowa FBLA DLC</div><div class="award-org">Future Business Leaders of America</div></div><div class="award-year">2025</div></div>
+      <div class="award-row"><div class="award-medal medal-clay">🤝</div><div><div class="award-title">1st Place Connect Award — Dark Matter Robotics, Pompeii League Champs</div><div class="award-org">Dark Matter Robotics</div></div><div class="award-year">2025</div></div>
+      <div class="award-row"><div class="award-medal medal-silver">⭐</div><div><div class="award-title">Academic Letter of Achievement with Distinction</div><div class="award-org">Linn-Mar High School</div></div><div class="award-year">2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section id="cv-section">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="section-kicker">Curriculum Vitae</div>
+      <h2 class="section-title">Experience &amp; <em>Background</em></h2>
+    </div>
+    <div class="cv-card reveal">
+      <div class="cv-top">
+        <div><div class="cv-top-name">Arya Ravikumar <span>High School Sophomore · Class of 2028</span></div></div>
+        <div class="cv-top-right"><div class="cv-contact-item">📧 aryravikumar13@outlook.com</div><div class="cv-contact-item">📞 (319) 457-1416</div><div class="cv-contact-item">📍 Marion, Iowa</div></div>
+      </div>
+      <div class="cv-tabs">
+        <button class="cv-tab active" onclick="switchTab('education',this)">Education</button>
+        <button class="cv-tab" onclick="switchTab('leadership',this)">Leadership</button>
+        <button class="cv-tab" onclick="switchTab('service',this)">Service</button>
+        <button class="cv-tab" onclick="switchTab('skills',this)">Skills</button>
+      </div>
+      <div id="pane-education" class="cv-pane active">
+        <div class="edu-row"><div class="edu-dot"></div><div class="edu-main"><div class="edu-title">Linn-Mar High School</div><div class="edu-sub">Marion, Iowa · 2024–2028 · AP US History, AP Biology, AP World History, General Chemistry</div></div><div class="edu-gpa">4.36</div></div>
+        <div class="edu-row"><div class="edu-dot" style="background:var(--clay-lt);"></div><div class="edu-main"><div class="edu-title">AP US History — Score: 5</div><div class="edu-sub">College Board Advanced Placement · 2024–2025</div></div><div class="edu-gpa" style="color:var(--clay);">5 / 5</div></div>
+      </div>
+      <div id="pane-leadership" class="cv-pane">
+        <div class="cv-item"><div class="cv-item-top"><div class="cv-item-title">Linn-Mar HOSA — Treasurer</div><div class="cv-item-date">Aug 2024–Present</div></div><div class="cv-item-role">Health Occupations Students of America</div><div class="cv-item-body">Raised $1,670 for club events and conference travel through school fundraisers and community partnerships. Managed chapter budgets using financial statements and expense tracking. Designed promotional and financial materials for sponsorship outreach to 200+ organizations.</div></div>
+        <div class="cv-item"><div class="cv-item-top"><div class="cv-item-title">Dark Matter Robotics — Outreach Lead</div><div class="cv-item-date">Sep 2025–Present</div></div><div class="cv-item-role">Linn-Mar High School Robotics</div><div class="cv-item-body">Organized outreach events including a food drive, STEAM kit distribution, and a public Robotics Workshop. Raised $200 in equipment funds. Trained new members in outreach strategy. Won the 2025 Connect Award at Pompeii League Championships.</div></div>
+        <div class="cv-item"><div class="cv-item-top"><div class="cv-item-title">Cedar Rapids STEM Circle — Tutor</div><div class="cv-item-date">Aug 2025–Present</div></div><div class="cv-item-role">Science &amp; Math Tutor</div><div class="cv-item-body">Teaching middle school students through a community-led STEM initiative. Co-developed curriculum for science, math, and robotics. Created visual learning media and networked with partner organizations to grow program reach.</div></div>
+      </div>
+      <div id="pane-service" class="cv-pane">
+        <div class="cv-item"><div class="cv-item-top"><div class="cv-item-title">The Street Health Project — Founder</div><div class="cv-item-date">Oct 2025–Present</div></div><div class="cv-item-role">Local Nonprofit, Marion/Cedar Rapids Area</div><div class="cv-item-body">Founded a local nonprofit distributing healthcare and hygiene kits to underserved communities. Secured $200 in donated supplies from clinics and businesses through in-person and online outreach. Building partnerships and coordinating donation drives independently.</div></div>
+        <div class="cv-item"><div class="cv-item-top"><div class="cv-item-title">St. Luke's Hospital — Volunteer</div><div class="cv-item-date">Jul 2025–Present</div></div><div class="cv-item-role">Cedar Rapids, Iowa</div><div class="cv-item-body">Completed 70+ hours volunteering across hospital departments — assisting patients with navigation and supporting staff with administrative and logistical tasks.</div></div>
+      </div>
+      <div id="pane-skills" class="cv-pane">
+        <div style="margin-bottom:1.5rem;"><div class="cv-item-role" style="margin-bottom:.8rem;">Technical</div><div class="skill-chips"><span class="chip">LaTeX</span><span class="chip">Financial Statements</span><span class="chip">Curriculum Design</span><span class="chip">Visual Media Creation</span></div></div>
+        <div><div class="cv-item-role" style="margin-bottom:.8rem;">Leadership &amp; Outreach</div><div class="skill-chips"><span class="chip">Cold Emailing (200+ orgs)</span><span class="chip">Fundraising</span><span class="chip">Community Outreach</span><span class="chip">Nonprofit Operations</span><span class="chip">Event Planning</span><span class="chip">Budget Management</span><span class="chip">Mentorship</span><span class="chip">Public Speaking</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog-section">
+  <div class="section-wrap">
+    <div class="blog-header-row">
+      <div class="reveal">
+        <div class="section-kicker">Writing &amp; Reflections</div>
+        <h2 class="section-title" style="margin-bottom:0;">My <em>Blog</em></h2>
+        <div class="blog-filter" id="filter-bar">
+          <button class="filter-btn active" onclick="filterPosts('all',this)">All</button>
+          <button class="filter-btn" onclick="filterPosts('Community',this)">Community</button>
+          <button class="filter-btn" onclick="filterPosts('Healthcare',this)">Healthcare</button>
+          <button class="filter-btn" onclick="filterPosts('HOSA',this)">HOSA</button>
+          <button class="filter-btn" onclick="filterPosts('STEM',this)">STEM</button>
+          <button class="filter-btn" onclick="filterPosts('Fundraising',this)">Fundraising</button>
+          <button class="filter-btn" onclick="filterPosts('Reflection',this)">Reflection</button>
+        </div>
+      </div>
+      <button class="write-btn" onclick="openWriteModal()">✏️ Write a Post</button>
+    </div>
+    <div class="blog-featured reveal" id="featured-post" onclick="openReadModal(0)">
+      <div class="bf-visual">🏥</div>
+      <div class="bf-body">
+        <span class="service-tag tag-moss" style="margin:0;">Community</span>
+        <div class="bf-title">Why I Founded The Street Health Project</div>
+        <div class="bf-excerpt">Starting a nonprofit as a high school sophomore sounds impossible — until the need becomes undeniable. Here's the honest story of how The Street Health Project came to be, and what I've learned about resilience, community, and the power of just showing up.</div>
+        <div class="bf-meta"><span>October 2025</span><span>5 min read</span></div>
+        <div class="bf-read">Read this post →</div>
+      </div>
+    </div>
+    <div class="blog-grid" id="blog-grid"></div>
+    <div class="blog-empty" id="blog-empty">No posts in this category yet. <a href="#" onclick="openWriteModal();return false;" style="color:var(--moss);">Write the first one →</a></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact-section">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="contact-kicker">Let's Connect</div>
+      <h2 class="contact-title">Want to <em>collaborate</em> or learn more?</h2>
+      <p class="contact-note">Whether you're interested in partnering with The Street Health Project, have a volunteer opportunity, want to discuss healthcare access, or are just curious about what I'm working on — I'd genuinely love to hear from you.</p>
+      <div class="contact-methods">
+        <a href="mailto:aryravikumar13@outlook.com" class="contact-method"><div class="cm-icon">📧</div>aryravikumar13@outlook.com</a>
+        <a href="tel:3194571416" class="contact-method"><div class="cm-icon">📞</div>(319) 457-1416</a>
+        <div class="contact-method"><div class="cm-icon">📍</div>Marion, Iowa</div>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <div class="cf-row"><input class="cf-input" id="cf-name" placeholder="Your name"><input class="cf-input" id="cf-email" placeholder="Your email"></div>
+      <input class="cf-input" id="cf-subject" placeholder="Subject (e.g. Donation, Collaboration, Volunteering)">
+      <textarea class="cf-textarea" id="cf-msg" placeholder="Your message..."></textarea>
+      <button class="cf-submit" onclick="sendMessage()">Send Message →</button>
+      <div class="cf-success" id="cf-success">✅ Opening your mail app... Thank you for reaching out!</div>
+    </div>
+  </div>
+</div>
+<footer>© 2025 Arya Ravikumar · Linn-Mar High School · Marion, Iowa · Class of 2028</footer>
+
+<!-- WRITE MODAL -->
+<div class="modal-bg" id="write-modal">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-header-title">✏️ Write a New Post</div><button class="modal-close" onclick="closeWriteModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row"><label class="form-label">Post Title</label><input class="form-input" id="wm-title" placeholder="e.g. What I Learned From My First Donation Drive"></div>
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div><label class="form-label">Category</label><select class="form-select" id="wm-cat"><option>Community</option><option>Healthcare</option><option>HOSA</option><option>STEM</option><option>Robotics</option><option>Fundraising</option><option>Reflection</option><option>Other</option></select></div>
+        <div><label class="form-label">Read time</label><input class="form-input" id="wm-time" placeholder="4 min read"></div>
+      </div>
+      <div class="form-row"><label class="form-label">Short Excerpt (shown on card)</label><input class="form-input" id="wm-excerpt" placeholder="One or two sentences about the post..."></div>
+      <div class="form-row"><label class="form-label">Full Post Content</label><textarea class="form-textarea" id="wm-body" placeholder="Write your full blog post here. Use paragraph breaks for readability."></textarea></div>
+      <div class="modal-actions"><button class="btn btn-outline" onclick="closeWriteModal()">Cancel</button><button class="btn btn-moss" onclick="publishPost()">Publish Post →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- READ MODAL -->
+<div class="read-modal-bg" id="read-modal">
+  <div class="read-modal-box">
+    <div class="rh-visual" id="rm-visual"></div>
+    <div class="rh-content">
+      <div class="rh-tag-row"><span id="rm-tag" class="service-tag tag-moss"></span><span id="rm-meta" style="font-size:.8rem;color:var(--ink60);"></span></div>
+      <div class="rh-title" id="rm-title"></div>
+    </div>
+    <div class="read-modal-body" id="rm-body"></div>
+    <div class="read-modal-close"><button class="btn btn-outline" onclick="closeReadModal()">← Close</button></div>
+  </div>
+</div>
+
+<script>
+const POSTS = [
+  { id:0, title:"Why I Founded The Street Health Project", cat:"Community", excerpt:"Starting a nonprofit as a high school sophomore sounds impossible — until the need becomes undeniable.", time:"5 min read", date:"October 2025", emoji:"🏥", vis:"bcv-1", featured:true,
+    body:`When I started volunteering at St. Luke's Hospital in the summer of 2025, I expected to feel inspired. What I didn't expect was to come home from every shift thinking: this isn't enough.
+
+I kept noticing the same thing — healthcare access doesn't start in a hospital. It starts with something as basic as a toothbrush. A bar of soap. A bandage. For people living without stable housing in the Cedar Rapids area, even these things are out of reach.
+
+I started researching local resources. There weren't many specifically targeted at hygiene and basic healthcare supplies for people experiencing homelessness. So I decided to create something.
+
+The Street Health Project started in October 2025 as a simple idea: assemble kits with healthcare and hygiene essentials, and get them into the hands of people who need them. I began reaching out to local clinics and businesses — cold emails, in-person visits, social media posts. Within a few weeks I had secured $200 in donated supplies.
+
+It hasn't been easy. Running an organization at 15 while keeping up with AP Biology, HOSA, and robotics means most evenings look like a juggling act. But every kit that goes out feels like proof that you don't need to wait until you're older, or have more resources, or have more experience. You can start now.
+
+If you're interested in donating, volunteering, or partnering with The Street Health Project, please reach out. The need is real, and the more hands we have, the more people we can reach.` },
+  { id:1, title:"What Competing in HOSA Taught Me About Healthcare", cat:"HOSA", excerpt:"Placing 5th at Iowa HOSA SLC in Human Growth & Development was more than a rank — it changed how I see medicine.", time:"4 min read", date:"March 2025", emoji:"🔬", vis:"bcv-3", featured:false,
+    body:`Human Growth & Development sounds like a category you memorize facts for. And in some ways it is — you need to know the stages of development, the physiological changes from infancy through old age, the psychological theories. But preparing for the Iowa HOSA State Leadership Conference pushed me to think about why all of this matters.
+
+Here's what I mean: I could tell you that Erikson's stage of "Integrity vs. Despair" occurs in late adulthood. But when I connected that to the elderly patients I was seeing at St. Luke's — their loneliness, their desire to be heard, their need for dignity — it stopped being a fact to memorize and became something real.
+
+I placed 5th at State. That was a great result, and I was proud of it. But the more lasting outcome was the shift in how I study healthcare topics. I no longer approach them as purely academic. I ask: who does this affect? What does this look like in real life?
+
+That mindset is now central to everything I do — from hospital volunteering to developing curriculum for the STEM Circle. Understanding how people grow and change across their lifespan makes you a better caregiver, a better teacher, and a better person.
+
+I'm already preparing for next year's HOSA competition. But more than the placement, I'm chasing that feeling of genuine understanding.` },
+  { id:2, title:"Cold Emailing 200+ Organizations: What Actually Works", cat:"Fundraising", excerpt:"I've sent over 200 cold emails for sponsorships across HOSA, Robotics, and The Street Health Project. Here's the truth.", time:"6 min read", date:"November 2025", emoji:"✉️", vis:"bcv-2", featured:false,
+    body:`Two hundred emails. Between fundraising for HOSA, outreach for the robotics team, and launching The Street Health Project, I've written cold emails to over 200 companies, clinics, and local businesses over the past year.
+
+Most people assume cold emailing doesn't work — especially when you're a high schooler asking for money or supplies. But I've gotten enough responses, donations, and partnerships through cold email to know it's worth doing right.
+
+The subject line is everything. If someone doesn't open your email, nothing else matters. The more specific and human, the better.
+
+Don't start with yourself. The biggest mistake is opening with "My name is X and I'm a student at Y." Nobody cares yet. Start with the problem you're solving, or a quick reason why this email is relevant to them specifically.
+
+Personalization beats templates, but don't over-personalize. I write a strong base email and customize the first 1–2 sentences for each recipient.
+
+Follow-up is where most wins happen. About 60% of the responses I've gotten came after a follow-up, not the initial email. Wait 5–7 business days, then send a short, friendly check-in.
+
+Track everything. I use a simple spreadsheet: who I emailed, when, what response I got, whether I followed up.
+
+Cold emailing has gotten me supplies for The Street Health Project, sponsors for HOSA, and new community partnerships for robotics. The rejection rate is high. But sometimes one yes changes everything.` },
+  { id:3, title:"What 70 Hours in a Hospital Teaches You", cat:"Healthcare", excerpt:"I started volunteering at St. Luke's expecting to feel inspired. What I didn't expect was how much it would challenge my assumptions.", time:"4 min read", date:"September 2025", emoji:"💊", vis:"bcv-4", featured:false,
+    body:`I started my hospital volunteering at St. Luke's in Cedar Rapids in July 2025. I went in thinking I knew what a hospital was like. I was wrong.
+
+The first thing that strikes you is how much of healthcare is about logistics. Helping a patient find their way to radiology. Delivering items between floors. Answering phones when staff are stretched. It's unglamorous, but it matters. A patient who feels lost and anxious is harder to treat than one who feels calm and oriented.
+
+The second thing is the exhaustion of healthcare workers. I have profound respect for nurses and aides who do this not for 3-hour volunteer shifts but for 12-hour days, day after day.
+
+The third thing — and this one has stayed with me — is how much patients just want to be treated like people. I wasn't doing anything medical. But stopping to actually talk with a patient waiting in a hallway, asking how they're feeling, acknowledging their frustration — that matters. Human connection is part of healing.
+
+After 70 hours, I know more about what healthcare is than I ever did from studying it. I also know more about what I want to do with my life. Whether I end up in medicine, public health, or community work, I want to spend it making the healthcare system more humane — not just more efficient.` },
+  { id:4, title:"Teaching Middle Schoolers to Love STEM", cat:"STEM", excerpt:"When I joined the Cedar Rapids STEM Circle as a tutor, I thought I was there to teach. Instead, I learned more than I expected.", time:"3 min read", date:"September 2025", emoji:"📐", vis:"bcv-7", featured:false,
+    body:`I was nervous the first day I walked into a tutoring session at the Cedar Rapids STEM Circle. Not because I didn't know the material — I did — but because explaining something and actually teaching it are completely different things.
+
+Middle schoolers have zero patience for boring explanations. If you're not engaging them in the first two minutes, you've lost them. That forced me to rethink how I approach teaching. Instead of explaining a concept and then showing an example, I started putting a puzzle in front of them first and offering the concept as the tool that solves it.
+
+The difference in engagement was immediate. Kids who were slumped back in their chairs were suddenly leaning forward.
+
+I also helped develop curriculum alongside the program's other tutors — designing sessions on basic robotics, physical science, and mathematics. Creating a lesson plan that actually works is its own skill. You have to think about what a 12-year-old knows, what they find interesting, and how to build toward understanding rather than just information.
+
+One of the most rewarding moments came when a student who'd been struggling with fractions suddenly got it. That's what keeps me coming back.
+
+STEM education in underserved communities isn't just about academic outcomes. It's about showing kids that these fields belong to them too.` },
+  { id:5, title:"Running a Community Robotics Workshop", cat:"STEM", excerpt:"Organizing a community robotics workshop as Outreach Lead taught me more about leadership than any class ever has.", time:"3 min read", date:"December 2025", emoji:"🤖", vis:"bcv-5", featured:false,
+    body:`When I took on the Outreach Lead role for Dark Matter Robotics, I thought my job was logistics: book a room, set up the robots, show people how they work, done. I was very wrong.
+
+The first lesson was that getting people to show up requires more work than running the actual event. I had to promote the workshop across social media, through flyers at schools and community centers, and through direct outreach to teachers and parents.
+
+The second lesson was about accessibility. Some of the kids who came in were already robotics enthusiasts. But many had never touched anything like this. Calibrating the experience for both audiences required real-time adaptation.
+
+The third lesson was about what outreach actually means. It's not just putting on an event. It's building relationships. Following up with teachers. Asking for feedback. Creating a reason for people to come back.
+
+The food drive we organized alongside the workshop was partly practical and partly symbolic: we wanted the community to know that this robotics team cares about more than competitions.
+
+Winning the Connect Award at Pompeii League Championships was a wonderful recognition. But the thing I'm most proud of is that a kid who came to our workshop and had never thought about engineering is now thinking about it.` },
+  { id:6, title:"What Healthcare Inequality Looks Like Up Close", cat:"Community", excerpt:"Volunteering at St. Luke's and founding The Street Health Project showed me the gap between healthcare systems and healthcare access.", time:"4 min read", date:"January 2026", emoji:"🌿", vis:"bcv-6", featured:false,
+    body:`Before I started volunteering and working in community health, healthcare inequality was something I knew about intellectually. I'd read about it in AP Biology, heard about it in HOSA study materials. But there's a difference between knowing something and seeing it.
+
+At St. Luke's, I saw patients who had delayed coming to the hospital because of cost concerns. I saw people who didn't know they had access to certain services. I saw how much energy went into navigating a system that assumes you already understand how it works.
+
+When I started The Street Health Project, I was trying to address something even more fundamental: the absence of basic healthcare supplies for people living without stable housing. If you don't have toothpaste, a toothbrush, or bandages, the hospital is a distant last resort rather than part of a healthcare routine.
+
+What I've come to understand is that healthcare inequality isn't one problem — it's a layered set of problems. It's about supply, yes. But it's also about navigation, trust, language, transportation, and time. Solving any one layer doesn't solve the others.
+
+I don't have all the answers. I'm 15. But I've come to believe that meaningful change almost always starts local, starts small, and starts with people who decided to stop waiting for someone else to act. That's what I'm trying to do.` }
+];
+
+let posts = [...POSTS];
+let currentFilter = 'all';
+
+const catColors = { 'Community':'tag-moss','Healthcare':'tag-clay','HOSA':'tag-blue','STEM':'tag-gold','Robotics':'tag-gold','Fundraising':'tag-clay','Reflection':'tag-moss','Other':'tag-blue' };
+const catTextColors = { 'tag-moss':'var(--moss)','tag-clay':'var(--clay)','tag-blue':'#3870a0','tag-gold':'var(--gold)' };
+const visGradients = { 'bcv-1':'linear-gradient(135deg,#d8ecda,#b8d8bc)','bcv-2':'linear-gradient(135deg,#f5e8d5,#e8d0b0)','bcv-3':'linear-gradient(135deg,#d5e8f5,#b0ccdf)','bcv-4':'linear-gradient(135deg,#ecdfd5,#d8c4b4)','bcv-5':'linear-gradient(135deg,#e8e4d8,#d4cdb8)','bcv-6':'linear-gradient(135deg,#f0ead8,#e0d4b8)','bcv-7':'linear-gradient(135deg,#d8f0e8,#b0d8c4)' };
+
+function renderBlogGrid() {
+  const grid = document.getElementById('blog-grid');
+  const empty = document.getElementById('blog-empty');
+  const featured = document.getElementById('featured-post');
+  const featuredPost = posts.find(p => p.featured);
+  if (featuredPost) {
+    featured.style.display = (currentFilter === 'all' || featuredPost.cat === currentFilter) ? 'grid' : 'none';
+  }
+  const filtered = currentFilter === 'all' ? posts.filter(p=>!p.featured) : posts.filter(p=>p.cat===currentFilter&&!p.featured);
+  grid.innerHTML = '';
+  if (!filtered.length) { empty.style.display='block'; return; }
+  empty.style.display = 'none';
+  filtered.forEach(post => {
+    const cc = catColors[post.cat]||'tag-moss';
+    const tc = catTextColors[cc]||'var(--moss)';
+    const card = document.createElement('div');
+    card.className = 'blog-card';
+    card.innerHTML = `<div class="bc-visual ${post.vis}">${post.emoji}</div><div class="bc-body"><div class="bc-tag" style="color:${tc}">${post.cat}</div><div class="bc-title">${post.title}</div><div class="bc-excerpt">${post.excerpt}</div><div class="bc-meta"><span>${post.date}</span><span>${post.time}</span></div></div>`;
+    card.onclick = () => openReadModal(post.id);
+    grid.appendChild(card);
+  });
+}
+
+function filterPosts(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBlogGrid();
+}
+
+function openWriteModal() { document.getElementById('write-modal').classList.add('open'); }
+function closeWriteModal() { document.getElementById('write-modal').classList.remove('open'); }
+
+const visOptions = ['bcv-1','bcv-2','bcv-3','bcv-4','bcv-5','bcv-6','bcv-7'];
+const emojiMap = { 'Community':'🌿','Healthcare':'💊','HOSA':'🔬','STEM':'📐','Robotics':'🤖','Fundraising':'✉️','Reflection':'✨','Other':'📖' };
+let nextId = POSTS.length;
+
+function publishPost() {
+  const title = document.getElementById('wm-title').value.trim();
+  const cat = document.getElementById('wm-cat').value;
+  const excerpt = document.getElementById('wm-excerpt').value.trim();
+  const body = document.getElementById('wm-body').value.trim();
+  const time = document.getElementById('wm-time').value.trim()||'3 min read';
+  if (!title||!excerpt||!body) { alert('Please fill in title, excerpt, and content.'); return; }
+  const date = new Date().toLocaleString('default',{month:'long',year:'numeric'});
+  posts.unshift({ id:nextId++, title, cat, excerpt, body, time, date, emoji:emojiMap[cat]||'📖', vis:visOptions[nextId%visOptions.length], featured:false });
+  renderBlogGrid();
+  closeWriteModal();
+  ['wm-title','wm-excerpt','wm-body','wm-time'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('wm-cat').selectedIndex=0;
+}
+
+function openReadModal(id) {
+  const post = posts.find(p=>p.id===id);
+  if (!post) return;
+  const cc = catColors[post.cat]||'tag-moss';
+  document.getElementById('rm-visual').style.background = visGradients[post.vis]||visGradients['bcv-1'];
+  document.getElementById('rm-visual').textContent = post.emoji;
+  document.getElementById('rm-tag').textContent = post.cat;
+  document.getElementById('rm-tag').className = `service-tag ${cc}`;
+  document.getElementById('rm-meta').textContent = `${post.date} · ${post.time}`;
+  document.getElementById('rm-title').textContent = post.title;
+  document.getElementById('rm-body').innerHTML = post.body.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('read-modal').classList.add('open');
+}
+function closeReadModal() { document.getElementById('read-modal').classList.remove('open'); }
+
+['write-modal','read-modal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){ if(e.target===this)this.classList.remove('open'); });
+});
+
+function switchTab(name,btn) {
+  document.querySelectorAll('.cv-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.cv-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function sendMessage() {
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const subject=document.getElementById('cf-subject').value.trim();
+  const msg=document.getElementById('cf-msg').value.trim();
+  if(!name||!email||!msg){alert('Please fill in all fields.');return;}
+  window.location.href=`mailto:aryravikumar13@outlook.com?subject=${encodeURIComponent(subject||'Message from '+name)}&body=${encodeURIComponent(msg+'\n\nFrom: '+name+'\nReply to: '+email)}`;
+  document.getElementById('cf-success').style.display='block';
+}
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} });
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+renderBlogGrid();
+</script>
+</body>
+</html>
